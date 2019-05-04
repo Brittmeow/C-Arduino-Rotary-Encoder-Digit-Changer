@@ -1,0 +1,934 @@
+/*
+  Purpose: Changes the number on a 7-segment display as a rotary encoder is turned; when rotary encoder is pressed, moves to the next digit to the left
+  Return: Numbers on the 7-segment display
+*/
+/* 
+Purpose: Defines hardware setup  and connections to the arduino
+*/
+#define sega 13
+#define segb 11
+#define segc 4
+#define segd 5
+#define sege 6
+#define segf 7
+#define segg 9
+#define encoderpina 10
+#define encoderpinb 1
+#define encoderpinswitch 0
+#define digit4 8
+#define digit3 3
+#define digit2 12
+#define digit1 2
+#define DISPLAY_BRIGHTNESS 1000
+/* 
+Purpose: Declares each output function 
+*/
+  void output_0();
+  void output_1();
+  void output_2();
+  void output_3();
+  void output_4();
+  void output_5();
+  void output_6();
+  void output_7();
+  void output_8();
+  void output_9();
+  void output_10();
+  void output_11();
+  void output_12();
+  void output_13();
+  void output_14();
+  void output_15();
+  void output_16();
+  void output_17();
+  void output_18();
+  void output_19();
+  void output_20();
+  void output_21();
+  void output_22();
+  void output_23();
+  void output_24();
+  void output_25();
+  void output_26();
+  void output_27();
+  void output_28();
+  void output_29();
+  void output_30();
+  void output_31();
+  void output_32();
+  void output_33();
+  void output_34();
+  void output_35();
+  void output_36();
+  void output_37();
+  void output_38();
+  void output_39();
+/* 
+Purpose: Declares variables for the loop function
+*/
+int number4=0;
+int number3=0;
+int number2=0;
+int number1=0;
+int encoderpinaLast=LOW;
+int digit=4;
+int switchLast=LOW;
+int buttonState=HIGH;
+/* 
+Purpose:  Declares each pin as input or output
+*/
+void setup(){
+  pinMode(sega, OUTPUT);
+  pinMode(segb, OUTPUT);
+  pinMode(segc, OUTPUT);
+  pinMode(segd, OUTPUT);
+  pinMode(sege, OUTPUT);
+  pinMode(segf, OUTPUT);
+  pinMode(segg, OUTPUT);
+  pinMode(encoderpina, INPUT_PULLUP);
+  pinMode(encoderpinb, INPUT_PULLUP);
+  pinMode(encoderpinswitch, INPUT_PULLUP);
+  pinMode(digit1, OUTPUT);
+  pinMode(digit2, OUTPUT);
+  pinMode(digit3, OUTPUT);
+  pinMode(digit4, OUTPUT);
+  Serial.begin(9600);
+}
+/* 
+Purpose: Increments number when turned clockwise, decrements number when turned counter-clockwise 
+*/
+void loop(){  
+  int n=digitalRead(encoderpina);
+  byte buttonStatus = digitalRead(encoderpinswitch);
+  if (buttonStatus != buttonState)
+  {
+    buttonState = buttonStatus;
+    if (buttonStatus == LOW)
+      digit--;
+      if(digit<1)
+      digit=4;
+  }  
+  if ((encoderpinaLast == LOW) && (n == HIGH)) {
+    if (digitalRead(encoderpinb) == LOW) {
+       if(digit==4){
+       number4++;
+       if(number4==10)
+       number4=0;
+       }
+       else if(digit==3){
+         number3++;
+         if(number3==10)
+         number3=0;
+       }
+       else if(digit==2){
+         number2++;
+         if(number2==10)
+         number2=0;
+       }
+       else if(digit==1){
+         number1++;
+         if(number1==10)
+         number1=0;
+       }
+     } else {
+       if(digit==4){
+       number4--;
+       if(number4==-1)
+       number4=9;
+     }
+     else if(digit==3){
+       number3--;
+       if(number3==-1)
+       number3=9;
+     }
+     else if(digit==2){
+       number2--;
+       if(number2==-1)
+       number2=9;
+     }
+     else if(digit==1){
+       number1--;
+       if(number1==-1)
+       number1=9;
+     }
+   }
+   }
+ encoderpinaLast=n;
+if((number4==8)&&(number3==6)&&(number2==8)&&(number1==6)){
+  Serial.print("Number "); 
+  Serial.print(number1); 
+  Serial.print("-"); 
+  Serial.print(number2); 
+  Serial.print("-");
+  Serial.print(number3);
+  Serial.print("-");
+  Serial.print(number4);
+  Serial.println(" accepted");
+}
+else{
+Serial.println("Number not accepted");
+}
+if(number4==0)
+output_0();
+if(number4==1)
+output_1();
+if(number4==2)
+output_2();
+if(number4==3)
+output_3();
+if(number4==4)
+output_4();
+if(number4==5)
+output_5();
+if(number4==6)
+output_6();
+if(number4==7)
+output_7();
+if(number4==8)
+output_8();
+if(number4==9)
+output_9();
+
+if(number3==0)
+output_10();
+if(number3==1)
+output_11();
+if(number3==2)
+output_12();
+if(number3==3)
+output_13();
+if(number3==4)
+output_14();
+if(number3==5)
+output_15();
+if(number3==6)
+output_16();
+if(number3==7)
+output_17();
+if(number3==8)
+output_18();
+if(number3==9)
+output_19(); 
+
+if(number2==0)
+output_20();
+if(number2==1)
+output_21();
+if(number2==2)
+output_22();
+if(number2==3)
+output_23();
+if(number2==4)
+output_24();
+if(number2==5)
+output_25();
+if(number2==6)
+output_26();
+if(number2==7)
+output_27();
+if(number2==8)
+output_28();
+if(number2==9)
+output_29();
+  
+if(number1==0)
+output_30();
+if(number1==1)
+output_31();
+if(number1==2)
+output_32();
+if(number1==3)
+output_33();
+if(number1==4)
+output_34();
+if(number1==5)
+output_35();
+if(number1==6)
+output_36();
+if(number1==7)
+output_37();
+if(number1==8)
+output_38();
+if(number1==9)
+output_39(); 
+ } 
+/*
+Purpose: Displays a 0 on digit 4
+*/
+void output_0(){ 
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);   
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, LOW);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*
+Purpose: Displays a 1 on digit 4
+*/
+void output_1(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, HIGH);
+    digitalWrite(sege, HIGH);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*
+Purpose: Displays a 2 on digit 4
+*/
+void output_2(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, HIGH);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, LOW);
+    delay(5);
+}
+/*
+Purpose: Displays a 3 on digit 4
+*/
+void output_3(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 4 on digit 4
+*/
+void output_4(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 5 on digit 4
+*/
+void output_5(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 6 on digit 4
+*/
+void output_6(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 7 on digit 4
+*/
+void output_7(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);  
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, HIGH);
+  delay(5);
+}
+/*
+Purpose: Displays an 8 on digit 4
+*/
+void output_8(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 9 on digit 4
+*/
+void output_9(){
+    digitalWrite(digit4, HIGH);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 0 on digit 3
+*/
+void output_10(){ 
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);   
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, LOW);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*
+Purpose: Displays a 1 on digit 3
+*/
+void output_11(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, HIGH);
+    digitalWrite(sege, HIGH);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*  
+Purpose: Displays a 2 on digit 3
+*/
+void output_12(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, HIGH);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, LOW);
+    delay(5);
+}
+/*
+Purpose: Displays a 3 on digit 3
+*/
+void output_13(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 4 on digit 3
+*/
+void output_14(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 5 on digit 3
+*/
+void output_15(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 6 on digit 3
+*/
+void output_16(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 7 on digit 3
+*/
+void output_17(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);  
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, HIGH);
+  delay(5);
+}
+/*
+Purpose: Displays an 8 on digit 3
+*/
+void output_18(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 9 on digit 3
+*/
+void output_19(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, HIGH);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 0 on digit 2
+*/
+void output_20(){ 
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);   
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, LOW);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*
+Purpose: Displays a 1 on digit 2
+*/
+void output_21(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, HIGH);
+    digitalWrite(sege, HIGH);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*  
+Purpose: Displays a 2 on digit 3
+*/
+void output_22(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, HIGH);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, LOW);
+    delay(5);
+}
+/*
+Purpose: Displays a 3 on digit 2
+*/
+void output_23(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 4 on digit 2
+*/
+void output_24(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, HIGH);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 5 on digit 2
+*/
+void output_25(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 6 on digit 2
+*/
+void output_26(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 7 on digit 2
+*/
+void output_27(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);  
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, HIGH);
+  delay(5);
+}
+/*
+Purpose: Displays an 8 on digit 2
+*/
+void output_28(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 9 on digit 2
+*/
+void output_29(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, HIGH);
+    digitalWrite(digit1, LOW);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 0 on digit 1
+*/
+void output_30(){ 
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, LOW);   
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, LOW);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*
+Purpose: Displays a 1 on digit 1
+*/
+void output_31(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, HIGH);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, LOW);
+    digitalWrite(segd, HIGH);
+    digitalWrite(sege, HIGH);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, HIGH);
+    delay(5);
+}
+/*  
+Purpose: Displays a 2 on digit 1
+*/
+void output_32(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, LOW);    
+    digitalWrite(segb, LOW);
+    digitalWrite(segc, HIGH);
+    digitalWrite(segd, LOW);
+    digitalWrite(sege, LOW);
+    digitalWrite(segf, HIGH);
+    digitalWrite(segg, LOW);
+    delay(5);
+}
+/*
+Purpose: Displays a 3 on digit 1
+*/
+void output_33(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 4 on digit 1
+*/
+void output_34(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, HIGH);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 5 on digit 1
+*/
+void output_35(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 6 on digit 1
+*/
+void output_36(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, HIGH);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 7 on digit 1
+*/
+void output_37(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+      digitalWrite(sega, LOW);  
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, HIGH);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, HIGH);
+  digitalWrite(segg, HIGH);
+  delay(5);
+}
+/*
+Purpose: Displays an 8 on digit 1
+*/
+void output_38(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+      digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, LOW);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
+/*
+Purpose: Displays a 9 on digit 1
+*/
+void output_39(){
+    digitalWrite(digit4, LOW);
+    digitalWrite(digit3, LOW);
+    digitalWrite(digit2, LOW);
+    digitalWrite(digit1, HIGH);
+    digitalWrite(sega, LOW);    
+  digitalWrite(segb, LOW);
+  digitalWrite(segc, LOW);
+  digitalWrite(segd, LOW);
+  digitalWrite(sege, HIGH);
+  digitalWrite(segf, LOW);
+  digitalWrite(segg, LOW);
+  delay(5);
+}
